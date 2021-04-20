@@ -20,7 +20,7 @@ public class UserService {
 	
 	@Autowired
 	private ZipCodeService zipCodeService;
-
+	
 	public User createUser(UserDto userDto) {
 		validateSingleField(userDto);
 		User user = userDto.toUser();
