@@ -27,4 +27,9 @@ public class AddressDto {
 		return zipCode;
 	}
 
+	@Override
+	public String toString() {
+		return "AddressDto [number=" + number + ", complement=" + complement + ", zipCode=" + zipCode + "]";
+	}
+
 }
