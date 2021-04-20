@@ -1,7 +1,7 @@
 # User API 📚
 Desafio Java de implementação de uma API REST utilizando Spring Framework
 
-* API REST com cadastro de usuários, endereços e listagem de endereços de um usuário específico
+* API de cadastro de usuários, endereços e listagem de endereços de um usuário específico
 
 ### Estrutura do Projeto
 
@@ -14,4 +14,6 @@ As classes foram divididas em pacotes de acordo com suas responsabilidades.
 * Controller: também chamado de Resource, classes que definem a interação com a API por meio dos endpoints
 * Exception: classes de exceções
 * Integration: integração com a API ViaCep
-* Config: configuração do Bean Validation
+* Config: configuração do Bean Validation e do Swagger
+
+### A API foi documentada no swagger
