@@ -16,4 +16,8 @@ As classes foram divididas em pacotes de acordo com suas responsabilidades.
 * Integration: integração com a API ViaCep
 * Config: configuração do Bean Validation e do Swagger
 
+![estrutura_projeto](https://github.com/mayzacatrinck/user-api/blob/master/images/estrutura_projeto.png)
+
 ### A API foi documentada no swagger
+
+![swagger](https://github.com/mayzacatrinck/user-api/blob/master/images/swagger.png)
