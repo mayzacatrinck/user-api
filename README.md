@@ -1,4 +1,4 @@
-# User API 📚
+# User API 
 Desafio Java de implementação de uma API REST utilizando Spring Framework
 
 * API de cadastro de usuários, endereços e listagem de endereços de um usuário específico
