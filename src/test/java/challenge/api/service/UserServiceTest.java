@@ -80,7 +80,7 @@ public class UserServiceTest {
 
 	private void buildUser(UserDto dto) {
 		dto.setName("Ususario 1");
-		dto.setDocument("16516763720");
+		dto.setDocument("35703200067");
 		dto.setEmail("usuario@gmail.com");
 		dto.setBirthDate(LocalDate.now());
 	}
