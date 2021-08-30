@@ -3,8 +3,8 @@ package challenge.api.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import challenge.api.dto.AddressDto;
-import challenge.api.dto.UserDto;
+import challenge.api.dto.AddressRequest;
+import challenge.api.dto.UserRequest;
 import challenge.api.exception.AlreadyUserException;
 import challenge.api.exception.RecordNotFoundException;
 import challenge.api.integration.AddressViaCep;
@@ -21,14 +21,14 @@ public class UserService {
 	@Autowired
 	private ZipCodeService zipCodeService;
 	
-	public User createUser(UserDto userDto) {
-		validateSingleField(userDto);
-		User user = userDto.toUser();
+	public User createUser(UserRequest userRequest) {
+		validateSingleField(userRequest);
+		User user = userRequest.toUser();
 		return userRepository.save(user);
 	}
 
-	private void validateSingleField(UserDto userDto) {
-		userRepository.findByDocumentOrEmail(userDto.getDocument(), userDto.getEmail())
+	private void validateSingleField(UserRequest userRequest) {
+		userRepository.findByDocumentOrEmail(userRequest.getDocument(), userRequest.getEmail())
 				.ifPresent(user -> { 
 					throw new AlreadyUserException("Document or email already registered."); });
 	}
@@ -38,25 +38,17 @@ public class UserService {
 				.orElseThrow(() -> new RecordNotFoundException("User not found"));
 	}
 
-	public User registerAddress(Long idUser, AddressDto addressDto) {
+	public User registerAddress(Long idUser, AddressRequest addressRequest) {
 		User user = findUser(idUser);
-		AddressViaCep zipCode = zipCodeService.findZipeCode(addressDto.getZipCode());
-		Address address = buidAddress(user, addressDto, zipCode);
+		AddressViaCep zipCode = zipCodeService.findZipeCode(addressRequest.getZipCode());
+		Address address = buidAddress(user, addressRequest, zipCode);
 		user.addAddress(address);	
 		return userRepository.save(user);
 	}
 	
-	private Address buidAddress(User user, AddressDto addressDto, AddressViaCep zipCode) {
-		Address address = new Address();
-		address.setNumber(addressDto.getNumber());
-		address.setComplement(addressDto.getComplement());
-		address.setZipCode(addressDto.getZipCode());
-		address.setNeighborhood(zipCode.getNeighborhood());
-		address.setCity(zipCode.getCity());
-		address.setStreet(zipCode.getStreet());
-		address.setState(zipCode.getState());
-		address.setUser(user);
-		return address;
+	private Address buidAddress(User user, AddressRequest addressRequest, AddressViaCep zipCode) {
+		return new Address(addressRequest.getNumber(), addressRequest.getComplement(), addressRequest.getZipCode(),
+				zipCode.getNeighborhood(), zipCode.getCity(), zipCode.getStreet(), zipCode.getState(), user);
 	}
 
 }

@@ -37,65 +37,48 @@ public class User {
 	
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-	private List<Address> addresses = new ArrayList<Address>();
-	
+	private List<Address> addresses = new ArrayList<>();
+
+	public User(String name, String email, String document, LocalDate birthDate) {
+		this.name = name;
+		this.email = email;
+		this.document = document;
+		this.birthDate = birthDate;
+	}
+
+	private User() {
+	}
+
 	public void addAddress(Address address) {
 		address.setUser(this);
 		addresses.add(address);
+	}
+
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getDocument() {
 		return document;
-	}
-
-	public void setDocument(String document) {
-		this.document = document;
 	}
 
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
-	}
-	
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
-	
 	public List<Address> getAddresses() {
 		return addresses;
 	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", document=" + document + ", birthDate="
-				+ birthDate + "]";
-	}
-
 }
